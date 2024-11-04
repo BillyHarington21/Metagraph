@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Metagraph.Models
 {
-    public class Edge
+    public class Edge 
     {
         public int Id {  get; set; }
         public Node Start {  get; set; }
