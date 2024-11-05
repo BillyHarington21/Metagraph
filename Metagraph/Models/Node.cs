@@ -13,7 +13,7 @@ namespace Metagraph.Models
         public Node(int id) 
         {
             Id = id;
-            Attribute = null;   
+            Attribute = 0;   
         }
 
     }

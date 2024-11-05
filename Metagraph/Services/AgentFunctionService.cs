@@ -1,6 +1,7 @@
 ﻿using Metagraph.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -21,14 +22,13 @@ namespace Metagraph.Services
         {
             for (int i = 0; i < rules.Count; i++)
             {
-                var parts = rules[i].Split();
-                bool isNodeRule = i < countNode;
-
+                string[] parts = rules[i].Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                                
                 if (parts.Length == 1)
                 {
-                    FixedValue(i, double.Parse(parts[0]), countNode);
+                    FixedValue(i, double.Parse(parts[0], CultureInfo.InvariantCulture), countNode);
                 }
-                else if (parts.Length == 3)
+                else if (parts.Length == 2)
                 {
                     CopyAttribute(i, parts[0], int.Parse(parts[1]), countNode);
                 }
@@ -39,9 +39,9 @@ namespace Metagraph.Services
             }
         }    
 
-        private void FixedValue(int index, double value, int countNode)
+        public void FixedValue(int index, double value, int countNode)
         {
-            if (index < countNode)
+            if (index < countNode )
             {
                 _graph.GetNodeById(index).Attribute = value;
             }
@@ -51,7 +51,7 @@ namespace Metagraph.Services
             }
         }
 
-        private void CopyAttribute(int index, string type, int sourceId, int countNode)
+        public void CopyAttribute(int index, string type, int sourceId, int countNode)
         {
             double? sourceAttribute = type == "v"
                      ? _graph.GetNodeById(sourceId)?.Attribute
@@ -70,7 +70,7 @@ namespace Metagraph.Services
             }
         }
 
-        private void Function(int index, string function, string type1, int id1, string type2, int id2, int countNode)
+        public void Function(int index, string function, string type1, int id1, string type2, int id2, int countNode)
         {
             double? attribute1 = type1 == "v"
                 ? _graph.GetNodeById(id1)?.Attribute

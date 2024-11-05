@@ -17,7 +17,7 @@ namespace Metagraph.Models
             Id = id;
             Start = start;
             End = end;
-            Attribute = null;
+            Attribute = 0;
         }
 
     }

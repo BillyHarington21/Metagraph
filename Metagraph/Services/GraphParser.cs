@@ -19,25 +19,40 @@ namespace Metagraph.Services
         public Graph Parse()
         {
             var graph = new Graph();
-            var lines = File.ReadAllLines(_filePath).Where(line => !string.IsNullOrWhiteSpace(line)).ToArray();
 
+            var lines = new List<string>(); // Используем List для динамического добавления
+            int emptyLineCount = 0; // Счётчик пустых строк
+
+            foreach (var line in File.ReadLines(_filePath))
+            {
+                if (string.IsNullOrWhiteSpace(line))
+                {
+                    emptyLineCount++;
+                    if (emptyLineCount == 2) break; // Прерываем чтение после второй пустой строки
+                }
+                else
+                {
+                    lines.Add(line); // Добавляем строку в список
+                }
+            }
+                        
             var header = lines[0].Split();
             int nodeCount = int.Parse(header[0]);
             int edgeCount = int.Parse(header[1]);
+            var w = nodeCount + edgeCount;
 
             for (int i = 0; i < nodeCount; i++)
-            {
-                graph.AddNode(new Node(i));
-            }
+                    graph.AddNode(new Node(i));
 
-            for (int i = 0; i <= edgeCount; i++)
+            for (int i = 1 ; i <= edgeCount; i++)
             {
-                var edgeNodes = lines[i].Split();
-                int startNodeId = int.Parse(edgeNodes[0]);
-                int endNodeId = int.Parse(edgeNodes[1]);
-                var edge = new Edge(i - 1, graph.GetNodeById(startNodeId), graph.GetNodeById(endNodeId));
-                graph.AddEdge(edge);
+                    var edgeNodes = lines[i].Split();
+                    int startNodeId = int.Parse(edgeNodes[0]);
+                    int endNodeId = int.Parse(edgeNodes[1]);
+                    var edge = new Edge(i - 1, graph.GetNodeById(startNodeId), graph.GetNodeById(endNodeId));
+                    graph.AddEdge(edge);
             }
+                 
             return graph;
         }
     }
