@@ -20,19 +20,19 @@ namespace Metagraph.Services
         {
             var graph = new Graph();
 
-            var lines = new List<string>(); // Используем List для динамического добавления
-            int emptyLineCount = 0; // Счётчик пустых строк
+            var lines = new List<string>();
+            int emptyLineCount = 0; 
 
             foreach (var line in File.ReadLines(_filePath))
             {
                 if (string.IsNullOrWhiteSpace(line))
                 {
                     emptyLineCount++;
-                    if (emptyLineCount == 2) break; // Прерываем чтение после второй пустой строки
+                    if (emptyLineCount == 2) break; 
                 }
                 else
                 {
-                    lines.Add(line); // Добавляем строку в список
+                    lines.Add(line); 
                 }
             }
                         

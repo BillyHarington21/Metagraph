@@ -18,7 +18,7 @@ namespace Metagraph.Services
             _graph = graph;
         }
 
-        public void Rules(List<string> rules, int countNode, int CountEdge )
+        public void Rules(List<string> rules, int countNode)
         {
             for (int i = 0; i < rules.Count; i++)
             {

@@ -6,9 +6,9 @@ class Program
 {
     static void Main(string[] args)
     {
-        // Путь к файлам для чтения и записи
-        string inputFilePath = "C:\\Users\\Константин\\Desktop\\Метаграф тестовое\\Metagraph\\Metagraph\\input.txt"; // Путь к файлу с данными графа
-        string outputFilePath = "C:\\Users\\Константин\\Desktop\\Метаграф тестовое\\Metagraph\\Metagraph\\output.txt"; // Путь к файлу для записи результатов
+        
+        string inputFilePath = "C:\\Users\\Константин\\Desktop\\Метаграф тестовое\\Metagraph\\Metagraph\\input.txt"; 
+        string outputFilePath = "C:\\Users\\Константин\\Desktop\\Метаграф тестовое\\Metagraph\\Metagraph\\output.txt"; 
 
         try
         {
@@ -25,7 +25,7 @@ class Program
 
             // Применяем агент-функции для вычисления атрибутов
             var calculator = new AgentFunctionService(graph);
-            calculator.Rules(rules, nodeCount, edgeCount);
+            calculator.Rules(rules, nodeCount);
 
             // Записываем результаты в файл
             var writer = new FileWriter(graph);
@@ -39,13 +39,13 @@ class Program
         }
     }
 
-    // Метод для загрузки правил из файла (на основе формата задания)
+    // Метод для загрузки правил из файла 
     static List<string> LoadRules(string filePath)
     {
         var rules = new List<string>();
-        var lines = System.IO.File.ReadAllLines(filePath);
+        var lines = File.ReadAllLines(filePath);
 
-        int emptyLineCount = 0; // Счётчик пустых строк
+        int emptyLineCount = 0; 
 
         foreach (var line in lines)
         {
@@ -55,7 +55,6 @@ class Program
                 continue;
             }
 
-            // Начинаем считывать правила только после второй пустой строки
             if (emptyLineCount >= 2)
             {
                 rules.Add(line);
